@@ -5,76 +5,101 @@ var upperCase = false;
 var numbers = false;
 var specialChar = false;
 var acceptableLenght = false;
-var password = " ";
+var password = "";
+var generateBtn = document.querySelector("#generate");
 
 var charOptions = "abcdefghijklmnopqrstuvwxyz";
 var numberOptions = "0123456789";
 var specialOptions = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~\\";
 
-length = window.prompt("Please choose a password length betwwen 8 and 128");
-lowerCase = window.confirm("Would you like to include lower case letters?");
-upperCase = window.confirm("Would you like to include Uppercase letters?");
-numbers = window.confirm("Would you like your password to include numbers?");
-specialChar= window.confirm("Would you like your password to include special characters?");
+function questions()
+{
+  length = window.prompt("Please choose a password length betwwen 8 and 128");
+  lowerCase = window.confirm("Would you like to include lower case letters?");
+  upperCase = window.confirm("Would you like to include Uppercase letters?");
+  numbers = window.confirm("Would you like your password to include numbers?");
+  specialChar= window.confirm("Would you like your password to include special characters?");
+};
 
-var checklength = function(){
-if (length => 8 && length <= 128)
+function checklength(){
+if ((length >= 8) && (length <= 128))
     {
-      acceptableLenght = true;
-
+      
+      console.log("length true");
+      return true;
+      
     }
 else
     {
-      window.alert("You have not chosen an accpetable password length");
-      length = window.prompt("Warning! you have not chosen a an acceptable password. Enter a number beteen 8 and 128");
-      checklength();
+      // length = window.prompt("Warning! you have not chosen a an acceptable password. Enter a number beteen 8 and 128");
+      console.log("length false");
+      window.alert("YOU MUST CHOOSE A PASSWORD LENGTH BETWEEN 8 AND 128");
 
 
-    }};
+      return false;
 
 
-if (lowerCase || upperCase || numbers || specialChar && acceptableLenght)
+    }
+  };
+
+function checkCriteria()
 {
-//generate password
-}
+    if (lowerCase || upperCase || numbers || specialChar  )
+    {
+    return true;
+    }
+    else
+    {
+      window.alert("You have not select any criteria");
+    }
+};
 
-
-function shuffleArray(array) {
-  return array.sort(function() {
-       return Math.random() - 0.5;
-  })};
+  function shuffleArray(array) 
+  {
+      return array.sort(function() 
+      {
+          return Math.random() - 0.5;
+      })
+  };
 
 
 function generatePassword()
   {
-    if(lowerCase)
+    questions();
+    if (checkCriteria() && checklength())
     {
-      password = password + charOptions;
-    }
+        if(lowerCase)
+        {
+          password = password + charOptions;
+        }
 
-    if(upperCase)
-    { 
-      password = password + charOptions.toUpperCase(); 
-    }
+        if(upperCase)
+        { 
+          password = password + charOptions.toUpperCase(); 
+        }
 
-    if(numbers)
-    {
-      password = password + numberOptions;
-    }
+        if(numbers)
+        {
+          password = password + numberOptions;
+        }
 
-    if(specialChar)
-    {
-      password = password + specialOptions;
-    }   
+        if(specialChar)
+        {
+          password = password + specialOptions;
+        }   
 
-    passwordArray = password.split("");
+        passwordArray = password.split("");
 
-    console.log(shuffleArray(passwordArray));
+        passwordArray= shuffleArray(passwordArray);
+        passwordArray= passwordArray.slice(0,length);
 
-    
+        var newPassword = passwordArray.join("");
+        console.log(newPassword);
+        document.querySelector("#password").value= newPassword;
+      }   
   }
 
-  generatePassword();
+  
 
 
 
@@ -91,5 +116,5 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click",generatePassword);
 
