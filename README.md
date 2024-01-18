@@ -33,4 +33,4 @@ In it, I have attempted to demonstrate my skills in CSS and HTML.
 ## Appearance
 
 The following image demonstrates the page's appearance
-![Screenshot of webpage](Screen Capture 015 - Password Generator.jpg)
+![Screenshot of webpage](ScreenCapture.jpg)
