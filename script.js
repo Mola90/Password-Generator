@@ -1,4 +1,4 @@
-// Assignment code here
+// variables delcared
 var length = 0;
 var lowerCase = false;
 var upperCase = false;
@@ -8,10 +8,27 @@ var acceptableLenght = false;
 var password = "";
 var generateBtn = document.querySelector("#generate");
 
+
+// resets variables for new password
+function reset()
+{
+  length = 0;
+  lowerCase = false;
+  upperCase = false;
+  numbers = false;
+  pecialChar = false;
+  acceptableLenght = false;
+  password = "";
+}
+
+// possible characters declared.
+
 var charOptions = "abcdefghijklmnopqrstuvwxyz";
 var numberOptions = "0123456789";
 var specialOptions = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~\\";
 
+
+//ask user to choose selection critera
 function questions()
 {
   length = window.prompt("Please choose a password length betwwen 8 and 128");
@@ -21,18 +38,16 @@ function questions()
   specialChar= window.confirm("Would you like your password to include special characters?");
 };
 
+// checks length of rquested password
 function checklength(){
 if ((length >= 8) && (length <= 128))
     {
       
-      console.log("length true");
       return true;
       
     }
 else
     {
-      // length = window.prompt("Warning! you have not chosen a an acceptable password. Enter a number beteen 8 and 128");
-      console.log("length false");
       window.alert("YOU MUST CHOOSE A PASSWORD LENGTH BETWEEN 8 AND 128");
 
 
@@ -42,6 +57,7 @@ else
     }
   };
 
+  // checks one or more criteria have been chosen for password
 function checkCriteria()
 {
     if (lowerCase || upperCase || numbers || specialChar  )
@@ -62,7 +78,7 @@ function checkCriteria()
       })
   };
 
-
+// generates password and assure password will be long enough
 function generatePassword()
   {
     questions();
@@ -70,24 +86,38 @@ function generatePassword()
     {
         if(lowerCase)
         {
+          for( var i =0; i < 15; i++)
+          {
           password = password + charOptions;
+          }
         }
 
         if(upperCase)
         { 
+          for( var i =0; i < 15; i++)
+          {
           password = password + charOptions.toUpperCase(); 
+          }
+          
         }
 
         if(numbers)
         {
+          for( var i =0; i < 15; i++)
+          {
           password = password + numberOptions;
-        }
+          }
+        }        
 
         if(specialChar)
         {
+          for( var i =0; i < 15; i++)
+          {
           password = password + specialOptions;
+          }
         }   
-
+    }
+//creates an array and shuffles the charactes and re assembles
         passwordArray = password.split("");
 
         passwordArray= shuffleArray(passwordArray);
@@ -96,7 +126,8 @@ function generatePassword()
         var newPassword = passwordArray.join("");
         console.log(newPassword);
         document.querySelector("#password").value= newPassword;
-      }   
+        reset();
+         
   }
 
   
@@ -112,9 +143,10 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
+  
+
 
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click",generatePassword);
-
